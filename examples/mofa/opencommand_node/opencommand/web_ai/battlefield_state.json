@@ -1,16 +1,9 @@
 {
   "economy": {
-    "cash": 656875,
-    "power": 390,
-    "power_provided": 1100,
-    "power_drained": 710,
-    "raw_data": {
-      "Cash": 11232,
-      "Resources": 656875,
-      "Power": 390,
-      "PowerDrained": 710,
-      "PowerProvided": 1100
-    }
+    "cash": 0,
+    "power": 0,
+    "power_provided": 0,
+    "power_drained": 0
   },
   "production": {
     "infantry": {
@@ -24,49 +17,9 @@
       "queue_items": []
     },
     "building": {
-      "items": 3,
-      "has_ready": true,
-      "queue_items": [
-        {
-          "name": "weap",
-          "chineseName": "战车工厂",
-          "remaining_time": 0,
-          "total_time": 300,
-          "remaining_cost": 0,
-          "total_cost": 1000,
-          "paused": false,
-          "done": true,
-          "progress_percent": 100,
-          "owner_actor_id": 3,
-          "status": "completed"
-        },
-        {
-          "name": "barr",
-          "chineseName": "兵营",
-          "remaining_time": 1,
-          "total_time": 1,
-          "remaining_cost": 250,
-          "total_cost": 250,
-          "paused": false,
-          "done": false,
-          "progress_percent": 0,
-          "owner_actor_id": 3,
-          "status": "waiting"
-        },
-        {
-          "name": "weap",
-          "chineseName": "战车工厂",
-          "remaining_time": 1,
-          "total_time": 1,
-          "remaining_cost": 1000,
-          "total_cost": 1000,
-          "paused": false,
-          "done": false,
-          "progress_percent": 0,
-          "owner_actor_id": 3,
-          "status": "waiting"
-        }
-      ]
+      "items": 0,
+      "has_ready": false,
+      "queue_items": []
     },
     "aircraft": {
       "items": 0,
@@ -77,22 +30,17 @@
       "items": 0,
       "has_ready": false,
       "queue_items": []
+    },
+    "naval": {
+      "items": 0,
+      "has_ready": false,
+      "queue_items": []
     }
   },
   "map_info": {
-    "width": 128,
-    "height": 128
+    "width": 0,
+    "height": 0
   },
-  "screen_info": {
-    "screen_min": {
-      "X": 78,
-      "Y": 65
-    },
-    "screen_max": {
-      "X": 111,
-      "Y": 89
-    },
-    "mouse_on_screen": true
-  },
-  "timestamp": 1752767190.69732
+  "screen_info": {},
+  "timestamp": 1753086073.635116
 }

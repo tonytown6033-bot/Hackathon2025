@@ -1,6 +1,6 @@
 {
-  "raw_input": "疯狂生产 不计代价",
+  "raw_input": "你好",
   "intent_type": "balanced_development",
   "priority_units": [],
-  "strategy": "aggressive_production"
+  "strategy": "standard"
 }

@@ -5,29 +5,11 @@
     "infantry": [
       {
         "unit": "e1",
-        "success": true
+        "success": false
       }
     ],
-    "vehicle": [
-      {
-        "unit": "jeep",
-        "success": true
-      },
-      {
-        "unit": "tank",
-        "success": true
-      }
-    ],
-    "building": [
-      {
-        "unit": "barr",
-        "success": true
-      },
-      {
-        "unit": "weap",
-        "success": true
-      }
-    ]
+    "vehicle": [],
+    "building": []
   },
-  "timestamp": 1752767202.53389
+  "timestamp": 1753086164.604361
 }
