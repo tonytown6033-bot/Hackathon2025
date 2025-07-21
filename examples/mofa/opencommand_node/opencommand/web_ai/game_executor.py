@@ -4,8 +4,8 @@
 """游戏执行模块"""
 
 import sys
-sys.path.append('..')
-from OpenRA_Copilot_Library import GameAPI
+sys.path.append('/Users/liyao/Code/mofa/OpenCodeAlert/Copilot/openra_ai')
+from OpenRA_Copilot_Library import GameAPI, Location, TargetsQueryParam
 import json
 import time
 
@@ -123,17 +123,14 @@ class GameExecutor:
     def _produce_unit(self, unit_type, category):
         """生产单位"""
         try:
-            response = self.api._send_request('start_production', {
-                "units": [{"unit_type": unit_type, "quantity": 1}],
-                "autoPlaceBuilding": False
-            })
+            # 使用GameAPI的封装方法
+            wait_id = self.api.produce(unit_type, 1, auto_place_building=False)
             
-            if response and response.get('status') == 1:
-                message = response.get('data', {}).get('response', '')
-                print(f"🏭 生产{category}成功: {unit_type} - {message.strip()}")
+            if wait_id is not None:
+                print(f"🏭 生产{category}成功: {unit_type} (waitId: {wait_id})")
                 return True
             else:
-                print(f"❌ 生产{category}失败: {unit_type} - {response}")
+                print(f"❌ 生产{category}失败: {unit_type}")
                 return False
                 
         except Exception as e:
@@ -143,10 +140,10 @@ class GameExecutor:
     def _place_ready_buildings(self):
         """放置就绪建筑"""
         try:
-            response = self.api._send_request('place_building', {"queueType": "Building"})
-            if response:
-                print("🏗️ 尝试放置就绪建筑")
-                return True
+            # 使用GameAPI的封装方法
+            self.api.place_building("Building")
+            print("🏗️ 尝试放置就绪建筑")
+            return True
         except Exception as e:
             print(f"❌ 放置建筑失败: {e}")
         return False
