@@ -58,6 +58,26 @@ Red Alert: AI Uprising，红警AI崛起，我们邀你来共同回答这个问�
 
 开发一个 AI Agent，接收用户输入的自然语言指令，在 20 个关卡中完成任务目标。每当完成一个关卡，游戏将生成一份加密日志，参赛者需上传该日志至官网用于评分，得分将实时公布在 Leader board 榜单。
 
+- Missions Accomplished：已完成关卡数目
+
+- Mission Time：关卡完成时间
+
+- Mission Economy:
+
+- Mission Kills:
+
+- Mission Casualty:
+
+- Mission Building Loss:
+
+   
+
+- Number of Human Commands: 关卡完成所需要的AI命令
+
+- Number o
+
+- Number of AI Actions：关卡完成所需要的API Calls的数量  
+
 #### 关卡设计
 
 关卡难度从易到难，涵盖多种战术挑战，包括但不限于：单兵控制，小队战术指挥，基地防守与进攻，多单位协调作战等
