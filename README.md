@@ -18,7 +18,7 @@ Red Alert: AI Uprising，红警AI崛起，我们邀你来共同回答这个问�
 
 本次大赛基于开源项目 **[OpenRA](link)**，它致力于重构与现代化经典的红警游戏，引擎支持 Windows、macOS 和 Linux 平台，并在玩法上引入诸多现代机制。目前 OpenRA 在 GitHub 上已有超过 15,700 Stars（截至 2025年7月）。
 
-在 OpenRA 基础上，黑客松组委会开发了具备开放接口的游戏引擎（[link]），支持通过 Socket、C#、Python、RESTful API，甚至 MCP Client 控制游戏。
+在 OpenRA 基础上，黑客松组委会简化了游戏，仅保留核心单位，并开发了具备开放接口的游戏引擎（[link]），支持通过 Socket 控制游戏，可以进一步封装成C#、Python、RESTful API，甚至 MCP Client 。
 参赛者可自由选择擅长的语言与接口，构建属于自己的 AI Agent。
 
 ------
