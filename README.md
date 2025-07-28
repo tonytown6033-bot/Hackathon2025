@@ -52,11 +52,12 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 - 当选手的AI Agent完成某关卡，游戏引擎将生成该关卡的Log文件。选手需将Log文件上传官网。Log文件将作为比赛评分的主要依据。
 - 更加详细的信息，请参考开发者指南文档。
 
-【注意】：基于开发者的自我修养，**严禁选手更改log文件**。否则，组委会有权取消开发者的比赛资格。
+
+【注意】：基于开发者的自我修养，**严禁更改log文件**。否则，组委会有权取消开发者的比赛资格。
 
 ### 比赛资源获取
 
-- [比赛官网][https://hackathon.scimigo.com/]（提供报名信息、日程安排、规则说明、FAQ 等）
+- [比赛官网][https://hackathon.scimigo.com/] （提供报名信息、日程安排、规则说明、FAQ 等）
 
 - [游戏引擎与开发文档](https://github.com/OpenCodeAlert/Hackathon2025)
 
@@ -68,6 +69,7 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 
     - [MCP Agents](https://github.com/OpenCodeAlert/Hackathon2025/tree/main/examples/mcp)
     - [MoFA Agents](https://github.com/OpenCodeAlert/Hackathon2025/tree/main/examples/mofa)
+
 
     【注意】示例Agents仅提供了非常有限的实现。组委会也无意其实现的方式。其唯一目的就是提供参赛者参考，方便参赛者启动自己的项目。组委会鼓励参赛者用
 
@@ -82,7 +84,7 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 ### 评分与日志上传
 
 - 游戏自动生成包含关键指标（通关时间、击杀数、战损比等）的加密日志
-- 参赛者将日志与 key token 上传至官网（[link]）
+- 参赛者将日志上传至官网（[link]）
 - 组委会根据评估规则评分并更新排名
 
 ## 决赛(嘉年华)
