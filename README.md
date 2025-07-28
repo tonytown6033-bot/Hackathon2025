@@ -57,24 +57,21 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 
 ### 比赛资源获取
 
-- [比赛官网][https://hackathon.scimigo.com/] （提供报名信息、日程安排、规则说明、FAQ 等）
+- [访问比赛官网][https://hackathon.scimigo.com/] （提供报名信息、日程安排、规则说明、FAQ 等）
 
-- [游戏引擎与开发文档](https://github.com/OpenCodeAlert/Hackathon2025)
+- [下载定制版红警游戏引擎]()
 
-  - 下载定制版红警游戏引擎
+- [获取开发接口文档](https://github.com/OpenCodeAlert/Hackathon2025/guideline.md)
 
-  - 获取开发接口文档与
+- 示例 Agents：组委会邀请了两组开发者，用不同的Agent技术开发了简单的示例Agents供大家参考。
 
-  - 示例 Agents：组委会邀请了两组开发者，用不同的Agent技术开发了简单的示例Agents供大家参考。
-
-    - [MCP Agents](https://github.com/OpenCodeAlert/Hackathon2025/tree/main/examples/mcp)
-    - [MoFA Agents](https://github.com/OpenCodeAlert/Hackathon2025/tree/main/examples/mofa)
+  - [MCP Agents](https://github.com/OpenCodeAlert/Hackathon2025/tree/main/examples/mcp)
+  - [MoFA Agents](https://github.com/OpenCodeAlert/Hackathon2025/tree/main/examples/mofa)
 
 
-    【注意】示例Agents仅提供了非常有限的实现。组委会也无意其实现的方式。其唯一目的就是提供参赛者参考，方便参赛者启动自己的项目。组委会鼓励参赛者用
+  【注意】示例Agents仅提供了非常有限的实现。组委会也无意其实现的方式。其唯一目的就是提供参赛者参考，方便参赛者启动自己的项目。组委会鼓励参赛者用
 
-  -  20 个关卡文件（暂定）与游戏引擎在同一软件包中提供。
-
+-  [了解关卡的情况](missions/README.md)。关卡与游戏引擎在同一软件包中提供。
 
 ### 指令输入方式
 
