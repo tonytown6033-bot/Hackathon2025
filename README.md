@@ -25,7 +25,7 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 
 本次大赛基于开源项目 **[OpenRA](link)**，它致力于重构与现代化经典的红警游戏，引擎支持 Windows、macOS 和 Linux 平台，并在玩法上引入诸多现代机制。目前 OpenRA 在 GitHub 上已有超过 15,700 Stars（截至 2025年7月）。
 
-在 OpenRA 基础上，黑客松组委会简化了游戏，保留核心单位，并开发了具备开放接口的游戏引擎([GitHub代码仓](https://github.com/OpenCodeAlert/Hackathon2025))，支持通过 [Socket API](https://github.com/OpenCodeAlert/Hackathon2025/blob/main/APIs/socket-apis.md)控制游戏，参赛者可自由选择擅长的语言与接口，可以进一步封装成C#、Python、RESTful API，MCP 工具等，构建属于自己的 AI Agent 。
+在 OpenRA 基础上，黑客松组委会简化了游戏，保留核心单位，并开发了具备开放接口的游戏引擎 ([GitHub代码仓](https://github.com/OpenCodeAlert/Hackathon2025))，支持通过 [Socket API](https://github.com/OpenCodeAlert/Hackathon2025/blob/main/APIs/socket-apis.md)控制游戏，参赛者可自由选择擅长的语言与接口，可以进一步封装成C#、Python、RESTful API，MCP 工具等，构建属于自己的 AI Agent 。
 
 ------
 
@@ -48,8 +48,14 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 初赛的基本方式是由参赛者下载游戏引擎和关卡到本地，开发大语言模型驱动的Agent，执行游戏API，完成关卡的方式进行。
 
 - 初赛的时间是8月1日至8月31日。
-- 初赛关卡由黑客松组织者通过GitHub代码仓提供。【注意】：关卡会在GitHub分期上线，因此，选手可能需要更新其本地软件。组委会预计提供20个左右关卡。
+
+- 初赛关卡由黑客松组织者通过GitHub代码仓提供。
+  
+
+  【注意】：关卡会在GitHub分期上线，因此，选手可能需要更新其本地软件。组委会预计提供20个左右关卡。
+
 - 当选手的AI Agent完成某关卡，游戏引擎将生成该关卡的Log文件。选手需将Log文件上传官网。Log文件将作为比赛评分的主要依据。
+
 - 更加详细的信息，请参考开发者指南文档。
 
 
@@ -57,7 +63,7 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 
 ### 比赛资源获取
 
-- [访问比赛官网][https://hackathon.scimigo.com/] （提供报名信息、日程安排、规则说明、FAQ 等）
+- [访问比赛官网][https://hackathon.scimigo.com/]：官网提供报名信息、日程安排、规则说明、FAQ 等。
 
 - [下载定制版红警游戏引擎]()
 
@@ -69,7 +75,7 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
   - [MoFA Agents](https://github.com/OpenCodeAlert/Hackathon2025/tree/main/examples/mofa)
 
 
-  【注意】示例Agents仅提供了非常有限的实现。组委会也无意其实现的方式。其唯一目的就是提供参赛者参考，方便参赛者启动自己的项目。组委会鼓励参赛者用
+  【注意】示例Agents仅提供了非常有限的实现。其唯一目的就是提供参赛者参考，方便参赛者启动自己的项目。组委会也无意推荐这些示例的实现的方式。
 
 -  [了解关卡的情况](missions/README.md)。关卡与游戏引擎在同一软件包中提供。
 
@@ -81,7 +87,7 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 ### 评分与日志上传
 
 - 游戏自动生成包含关键指标（通关时间、击杀数、战损比等）的加密日志
-- 参赛者将日志上传至官网（[link]）
+- 参赛者将日志上传至官网[link]
 - 组委会根据评估规则评分并更新排名
 
 ## 决赛(嘉年华)
@@ -108,7 +114,7 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 - 比赛将在大屏幕进行现场展示，并通过网络进行直播
 - GOSIM大会期间，还将安排观众挑战赛，邀请红警资深玩家与AI参赛队同台竞技等嘉年华活动。
 
-------
+
 
 ## 奖励设置
 
