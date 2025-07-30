@@ -23,7 +23,7 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 
 ## 游戏引擎与开发接口
 
-本次大赛基于开源项目 **[OpenRA](link)**，它致力于重构与现代化经典的红警游戏，引擎支持 Windows、macOS 和 Linux 平台，并在玩法上引入诸多现代机制。目前 OpenRA 在 GitHub 上已有超过 15,700 Stars（截至 2025年7月）。
+本次大赛基于开源项目 **[OpenRA](https://github.com/OpenRA/OpenRA)**，它致力于重构与现代化经典的红警游戏，引擎支持 Windows、macOS 和 Linux 平台，并在玩法上引入诸多现代机制。目前 OpenRA 在 GitHub 上已有超过 15,700 Stars（截至 2025年7月）。
 
 在 OpenRA 基础上，黑客松组委会简化了游戏，保留核心单位，并开发了具备开放接口的游戏引擎 ([GitHub代码仓](https://github.com/OpenCodeAlert/Hackathon2025))，支持通过 [Socket API](https://github.com/OpenCodeAlert/Hackathon2025/blob/main/APIs/socket-apis.md)控制游戏，参赛者可自由选择擅长的语言与接口，可以进一步封装成C#、Python、RESTful API，MCP 工具等，构建属于自己的 AI Agent 。
 
@@ -52,7 +52,7 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 - 初赛关卡由黑客松组织者通过GitHub代码仓提供。
   
 
-  【注意】：关卡会在GitHub分期上线，因此，选手可能需要更新其本地软件。组委会预计提供20个左右关卡。
+  【注意】：关卡会在GitHub分期上线，因此，选手可能需要更新本地下载的软件。组委会预计提供20个左右关卡。
 
 - 当选手的AI Agent完成某关卡，游戏引擎将生成该关卡的Log文件。选手需将Log文件上传官网。Log文件将作为比赛评分的主要依据。
 
@@ -87,12 +87,12 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 ### 评分与日志上传
 
 - 游戏自动生成包含关键指标（通关时间、击杀数、战损比等）的加密日志
-- 参赛者将日志上传至官网[link]
-- 组委会根据评估规则评分并更新排名
+- 参赛者将日志上传至[官网][https://hackathon.scimigo.com/leaderboard/]
+- 组委会根据评估规则评分并更新[排名](https://hackathon.scimigo.com/leaderboard/)
 
 ## 决赛(嘉年华)
 
-决赛将于 9月13日-14日 在 GOSIM China 大会现场举办。这不仅仅是是进一步的技术比拼，我们更希望将它打造为红警玩家、AI开发者和开源爱好者的盛事（嘉年华）。
+决赛将于 9月13日-14日 在 [GOSIM China 大会](https://hangzhou2025.gosim.org)现场举办。这不仅仅是是进一步的技术比拼，我们更希望将它打造为红警玩家、AI开发者和开源爱好者的盛事（嘉年华）。
 
 - 初赛前六名的团队将受邀参加决赛（嘉年华）阶段的比赛。
 
@@ -132,6 +132,4 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 
 欢迎每一位热爱红警、热心AI的你，加入这场命令与征服的新战役！
 
-**你来指挥，AI来战！** 
-
-**You Command, AI Conquers!**
+**You Command, AI Conquers! 你来指挥，AI来战！** 
