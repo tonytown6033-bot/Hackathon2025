@@ -1,0 +1,90 @@
+{
+  "economy": {
+    "cash": 1354632,
+    "power": 1166,
+    "power_provided": 1896,
+    "power_drained": 730,
+    "raw_data": {
+      "Cash": 9297,
+      "Resources": 1345335,
+      "Power": 1166,
+      "PowerProvided": 1896,
+      "PowerDrained": 730
+    }
+  },
+  "production": {
+    "infantry": {
+      "items": 0,
+      "has_ready": false,
+      "queue_items": []
+    },
+    "vehicle": {
+      "items": 0,
+      "has_ready": false,
+      "queue_items": []
+    },
+    "building": {
+      "items": 2,
+      "has_ready": true,
+      "queue_items": [
+        {
+          "name": "barr",
+          "chineseName": "兵营",
+          "remaining_time": 0,
+          "total_time": 75,
+          "remaining_cost": 0,
+          "total_cost": 250,
+          "paused": false,
+          "done": true,
+          "progress_percent": 100,
+          "owner_actor_id": 3,
+          "status": "completed"
+        },
+        {
+          "name": "weap",
+          "chineseName": "战车工厂",
+          "remaining_time": 1,
+          "total_time": 1,
+          "remaining_cost": 1000,
+          "total_cost": 1000,
+          "paused": false,
+          "done": false,
+          "progress_percent": 0,
+          "owner_actor_id": 3,
+          "status": "waiting"
+        }
+      ]
+    },
+    "aircraft": {
+      "items": 0,
+      "has_ready": false,
+      "queue_items": []
+    },
+    "defense": {
+      "items": 0,
+      "has_ready": false,
+      "queue_items": []
+    },
+    "naval": {
+      "items": 0,
+      "has_ready": false,
+      "queue_items": []
+    }
+  },
+  "map_info": {
+    "width": 96,
+    "height": 96
+  },
+  "screen_info": {
+    "screen_min": {
+      "X": 19,
+      "Y": 52
+    },
+    "screen_max": {
+      "X": 72,
+      "Y": 82
+    },
+    "mouse_on_screen": true
+  },
+  "timestamp": 1753165917.848937
+}

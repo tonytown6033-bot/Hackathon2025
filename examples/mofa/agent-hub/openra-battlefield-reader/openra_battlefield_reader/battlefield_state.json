@@ -1,0 +1,46 @@
+{
+  "economy": {
+    "cash": 0,
+    "power": 0,
+    "power_provided": 0,
+    "power_drained": 0
+  },
+  "production": {
+    "infantry": {
+      "items": 0,
+      "has_ready": false,
+      "queue_items": []
+    },
+    "vehicle": {
+      "items": 0,
+      "has_ready": false,
+      "queue_items": []
+    },
+    "building": {
+      "items": 0,
+      "has_ready": false,
+      "queue_items": []
+    },
+    "aircraft": {
+      "items": 0,
+      "has_ready": false,
+      "queue_items": []
+    },
+    "defense": {
+      "items": 0,
+      "has_ready": false,
+      "queue_items": []
+    },
+    "naval": {
+      "items": 0,
+      "has_ready": false,
+      "queue_items": []
+    }
+  },
+  "map_info": {
+    "width": 0,
+    "height": 0
+  },
+  "screen_info": {},
+  "timestamp": 1753086073.635116
+}

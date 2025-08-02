@@ -1,0 +1,6 @@
+{
+  "raw_input": "疯狂造兵 并且攻击",
+  "intent_type": "attack_focus",
+  "priority_units": [],
+  "strategy": "aggressive_production"
+}

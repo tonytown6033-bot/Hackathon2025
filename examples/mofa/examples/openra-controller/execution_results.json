@@ -1,0 +1,33 @@
+{
+  "executed_actions": [],
+  "failed_actions": [],
+  "production_results": {
+    "infantry": [
+      {
+        "unit": "e1",
+        "success": true
+      }
+    ],
+    "vehicle": [
+      {
+        "unit": "jeep",
+        "success": true
+      },
+      {
+        "unit": "tank",
+        "success": true
+      }
+    ],
+    "building": [
+      {
+        "unit": "barr",
+        "success": true
+      },
+      {
+        "unit": "weap",
+        "success": true
+      }
+    ]
+  },
+  "timestamp": 1753165927.0101619
+}

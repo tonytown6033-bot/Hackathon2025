@@ -1,0 +1,23 @@
+{
+  "situation_assessment": "当前经济状况良好，现金充足，电力略有不足但仍在可接受范围内。生产队列为空，意味着可以立即开始生产单位以支持攻击。",
+  "user_intent_interpretation": "用户希望快速生产兵力并进行攻击，表现出强烈的进攻意图。",
+  "recommended_strategy": "迅速建立兵力并向敌方发起攻击，利用现有经济优势进行大规模生产。",
+  "priority_actions": [
+    "立即在兵营生产步兵单位以增强地面攻击能力。",
+    "在战车工厂生产载具以提供机动性和火力支援。"
+  ],
+  "production_recommendations": {
+    "infantry_units": [
+      "e1"
+    ],
+    "vehicle_units": [
+      "jeep",
+      "tank"
+    ],
+    "building_units": [
+      "barr",
+      "weap"
+    ]
+  },
+  "reasoning": "用户的意图是快速进攻，因此需要优先生产步兵和载具。步兵可以迅速填补前线，而载具则可以提供支援和快速打击能力。由于现金充裕，建议同时建设兵营和战车工厂，以便在短时间内建立多样化的兵力。"
+}
