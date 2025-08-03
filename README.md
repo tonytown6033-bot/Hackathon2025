@@ -63,7 +63,7 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 
 ### 比赛资源获取
 
-- [访问比赛官网][https://hackathon.scimigo.com/]：官网提供报名信息、日程安排、规则说明、FAQ 等。
+- [访问比赛官网](https://hackathon.scimigo.com/)：官网提供报名信息、日程安排、规则说明、FAQ 等。
 
 - [下载定制版红警游戏引擎]()
 
