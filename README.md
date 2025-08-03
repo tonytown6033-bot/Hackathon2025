@@ -65,7 +65,7 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 
 - [访问比赛官网](https://hackathon.scimigo.com/)：官网提供报名信息、日程安排、规则说明、FAQ 等。
 
-- [下载定制版红警游戏引擎]()
+- [下载定制版红警游戏引擎和关卡软件包](https://github.com/OpenCodeAlert/Hackathon2025/releases)：由于新的比赛关卡会在比赛期间的不断发布，以及可能的bug修改问题，选手可能需要及时更新游戏引擎的下载。
 
 - [获取开发接口文档](https://github.com/OpenCodeAlert/Hackathon2025/guideline.md)
 
@@ -75,14 +75,14 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
   - [MoFA Agents](https://github.com/OpenCodeAlert/Hackathon2025/tree/main/examples/mofa)
 
 
-  【注意】示例Agents仅提供了非常有限的实现。其唯一目的就是提供参赛者参考，方便参赛者启动自己的项目。组委会也无意推荐这些示例的实现的方式。
+  【注意】示例Agents仅提供了非常有限的实现。其唯一目的就是提供参赛者参考，方便参赛者启动自己的项目。组委会无意推荐参赛者这些示例的实现方式。
 
--  [了解关卡的情况](missions/)。关卡与游戏引擎在同一软件包中提供。
+-  [了解关卡的情况](missions/)。关卡与游戏引擎在同一软件包中提供。在比赛过程中，当官方有新的关卡提供，选手需要[更新软件包](https://github.com/OpenCodeAlert/Hackathon2025/releases)。
 
 ### 指令输入方式
 
 初赛阶段的玩家指令将通过文本方式传递给 Agent。
-欢迎尝试语音输入（非必选）。
+欢迎尝试语音输入（非必选）。杭州决赛将采用语音输入的方式。
 
 ### 评分与日志上传
 
@@ -124,7 +124,7 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 - 奖项设置如下：一等奖 1 名，二等奖 1 名，三等奖 3 名。
 - 获奖选手将在 GOSIM 大会颁奖环节中接受表彰。
 
-【注意】组委会保持规则的最终定义和解释权。
+【注意】组委会保持规则的定义和解释权。
 
 ## 奖励设置
 
