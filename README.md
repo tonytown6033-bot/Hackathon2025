@@ -67,7 +67,7 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 
 - [下载定制版红警游戏引擎和关卡软件包](https://github.com/OpenCodeAlert/Hackathon2025/releases)：由于新的比赛关卡会在比赛期间的不断发布，以及可能的bug修改问题，选手可能需要及时更新游戏引擎的下载。
 
-- [获取开发接口文档](https://github.com/OpenCodeAlert/Hackathon2025/guideline.md)
+- [获取开发接口文档]([https://github.com/OpenCodeAlert/Hackathon2025/guideline.md](https://github.com/OpenCodeAlert/Hackathon2025/blob/main/APIs/socket-apis.md)
 
 - 示例 Agents：组委会邀请了两组开发者，用不同的Agent技术开发了简单的示例Agents供大家参考。
 
