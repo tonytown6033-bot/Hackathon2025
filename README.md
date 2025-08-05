@@ -8,7 +8,7 @@
 
 | 比赛阶段     | 时间                                                         |
 | ------------ | ------------------------------------------------------------ |
-| 初赛：       | 2025年8月4日-9月1日，线上比赛（[报名网站](https://hackathon.scimigo.com/)） |
+| 初赛：       | 2025年8月4日-9月1日，线上比赛（[报名网站](https://hackathon.mofa.ai/)） |
 | 决赛嘉年华： | 2025年9月13日-9月14日，中国 杭州 [GOSIM AI 大会](https://hangzhou2025.gosim.org) |
 
 **红色警戒：AI 崛起！**《红色警戒》（Red Alert）是一款划时代的即时战略（RTS）游戏，由 Westwood Studios 于 1996 年推出，是经典《命令与征服》（Command & Conquer）系列的重要代表作。游戏构建在架空的冷战背景下，玩家可选择扮演盟军或苏联，通过建设基地、采集资源、调配军队进行激烈对抗。其深度的战术系统与紧凑的游戏节奏在当年引发轰动，至今仍被无数玩家所津津乐道。
@@ -31,7 +31,7 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 
 ## 报名方式
 
-报名入口：[https://hackathon.scimigo.com/](https://hackathon.scimigo.com/)
+报名入口：[https://hackathon.mofa.ai/](https://hackathon.mofa.ai/)
 支持个人参赛，也支持组队（由队长报名并提交队员信息）。
 
 ------
@@ -52,7 +52,7 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 - 初赛关卡由黑客松组织者通过GitHub代码仓提供。
   
 
-  【注意】：关卡会在GitHub分期上线，因此，选手可能需要更新本地下载的软件。组委会预计提供20个左右关卡。
+  【注意】：关卡会在GitHub分期上线，因此，选手可能需要更新本地下载的软件。组委会预计提供10-20个左右关卡。
 
 - 当选手的AI Agent完成某关卡，游戏引擎将生成该关卡的Log文件。选手需将Log文件上传官网。Log文件将作为比赛评分的主要依据。
 
@@ -63,7 +63,7 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 
 ### 比赛资源获取
 
-- [访问比赛官网](https://hackathon.scimigo.com/)：官网提供报名信息、日程安排、规则说明、FAQ 等。
+- [访问比赛官网](https://hackathon.mofa.ai/)：官网提供报名信息、日程安排、规则说明、FAQ 等。
 
 - [下载定制版红警游戏引擎和关卡软件包](https://github.com/OpenCodeAlert/Hackathon2025/releases)：由于新的比赛关卡会在比赛期间的不断发布，以及可能的bug修改问题，选手可能需要及时更新游戏引擎的下载。
 
@@ -87,8 +87,8 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 ### 评分与日志上传
 
 - 游戏自动生成包含关键指标（通关时间、击杀数、战损比等）的加密日志
-- 参赛者将日志上传至[官网][https://hackathon.scimigo.com/leaderboard/]
-- 组委会根据评估规则评分并更新[排名](https://hackathon.scimigo.com/leaderboard/)
+- 参赛者将日志上传至[官网][https://hackathon.mofa.ai/leaderboard/]
+- 组委会根据评估规则评分并更新[排名](https://hackathon.mofa.ai/leaderboard/)
 
 ## 决赛(嘉年华)
 
