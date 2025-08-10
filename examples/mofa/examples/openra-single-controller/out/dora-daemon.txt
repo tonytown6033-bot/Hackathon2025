@@ -1,0 +1,17 @@
+2025-08-10T15:25:10.582365Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2025-08-10T15:25:10.585043Z  WARN dora_daemon: disabling multicast on macos systems. Enable it with the ZENOH_CONFIG env variable or file
+2025-08-10T15:25:10.585842Z  INFO zenoh::net::runtime: Using ZID: 8ca83011eacd0cb6277fc89fa98e3194
+2025-08-10T15:25:10.589209Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2409:8938:5caf:385a:1875:27e1:3b2e:f696]:5456
+2025-08-10T15:25:10.589240Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[2409:8938:5caf:385a:e9f9:3fa7:2da4:5205]:5456
+2025-08-10T15:25:10.589246Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fd00:1234:ffff::10]:5456
+2025-08-10T15:25:10.589250Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/198.18.0.1:5456
+2025-08-10T15:25:10.589254Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::1]:5456
+2025-08-10T15:25:10.589257Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::1c2c:c6b1:3cf4:6c5d]:5456
+2025-08-10T15:25:10.589260Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::2037:ff:fe44:7b4b]:5456
+2025-08-10T15:25:10.589264Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::2037:ff:fe44:7b4b]:5456
+2025-08-10T15:25:10.589267Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::6d97:13c8:2a2e:73e2]:5456
+2025-08-10T15:25:10.589270Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::6913:5a17:44ce:66f7]:5456
+2025-08-10T15:25:10.589273Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::43ac:33b1:36c5:ed82]:5456
+2025-08-10T15:25:10.589277Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::ce81:b1c:bd2c:69e]:5456
+2025-08-10T15:25:10.589280Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::4827:e86b:d3a4:a325]:5456
+2025-08-10T15:25:10.589283Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/192.168.50.85:5456
