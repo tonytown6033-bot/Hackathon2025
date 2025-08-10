@@ -3,3 +3,6 @@
 *.env
 .env.local
 .env.*.local
+*.pyc
+OpenRA/
+release/
