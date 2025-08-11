@@ -1,20 +1,9 @@
-🎮 收到用户指令: 111
-📤 AI 处理结果: 请提供更详细的信息，以便我能更好地帮助您。在游戏中，您希望执行什么操作呢？例如，生产单位、移动单位或查询游戏状态等。
-🎮 收到用户指令: 疯狂造兵
-📤 AI 处理结果: 请问您想生产哪些类型的单位以及数量呢？比如步兵、重坦、兵营等。如果需要，我可以查询一下当前的资源和状态，以便建议合适的数量和种类。
-🎮 收到用户指令: 全部
+🎮 收到用户指令: 展开基地车
 🤖 AI 调用工具: get_game_state 参数: {}
-📤 AI 处理结果: ❌ AI 处理失败: Error code: 400 - {'error': {'message': "An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'. The following tool_call_ids did not have response messages: call_VVxSjvYZK1bVjhRQrliUeNY6", 'type': 'invalid_request_error', 'param': 'messages.[3].role', 'code': None}}
-🎮 收到用户指令: None
-📤 AI 处理结果: ❌ AI 处理失败: Error code: 400 - {'error': {'message': "Invalid value for 'content': expected a string, got null.", 'type': 'invalid_request_error', 'param': 'messages.[1].content', 'code': None}}
-🎮 收到用户指令: None
-📤 AI 处理结果: ❌ AI 处理失败: Error code: 400 - {'error': {'message': "Invalid value for 'content': expected a string, got null.", 'type': 'invalid_request_error', 'param': 'messages.[1].content', 'code': None}}
-🎮 收到用户指令: None
-📤 AI 处理结果: ❌ AI 处理失败: Error code: 400 - {'error': {'message': "Invalid value for 'content': expected a string, got null.", 'type': 'invalid_request_error', 'param': 'messages.[1].content', 'code': None}}
-🎮 收到用户指令: None
-📤 AI 处理结果: ❌ AI 处理失败: Error code: 400 - {'error': {'message': "Invalid value for 'content': expected a string, got null.", 'type': 'invalid_request_error', 'param': 'messages.[1].content', 'code': None}}
-🎮 收到用户指令: None
-📤 AI 处理结果: ❌ AI 处理失败: Error code: 400 - {'error': {'message': "Invalid value for 'content': expected a string, got null.", 'type': 'invalid_request_error', 'param': 'messages.[1].content', 'code': None}}
+📤 AI 处理结果: 当前没有可用的基地车或任何单位。如果你需要其他操作，请告诉我。
+🎮 收到用户指令: 你就展开就行
+🤖 AI 调用工具: get_game_state 参数: {}
+📤 AI 处理结果: 目前没有可用的单位来执行展开操作。请检查是否已经建立了基地车 (MCV) 或其他可以展开的单位。是否需要其他帮助？
 🎮 收到用户指令: None
 📤 AI 处理结果: ❌ AI 处理失败: Error code: 400 - {'error': {'message': "Invalid value for 'content': expected a string, got null.", 'type': 'invalid_request_error', 'param': 'messages.[1].content', 'code': None}}
 🎮 收到用户指令: None

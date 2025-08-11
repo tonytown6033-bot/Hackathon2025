@@ -141,6 +141,52 @@ class OpenRACopilotAgent:
                         "required": ["unit_name"]
                     }
                 }
+            },
+            {
+                "type": "function",
+                "function": {
+                    "name": "deploy_units",
+                    "description": "部署单位（如展开基地车、部署攻城单位等）",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "actor_ids": {"type": "array", "items": {"type": "integer"}, "description": "要部署的单位ID列表，如果不提供则自动寻找基地车"}
+                        },
+                        "required": []
+                    }
+                }
+            },
+            {
+                "type": "function",
+                "function": {
+                    "name": "start_production",
+                    "description": "开始生产单位或建筑，适用于建造电厂等建筑",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "unit_type": {"type": "string", "description": "要生产的单位或建筑类型，如 '电厂', '兵营', '步兵' 等"},
+                            "quantity": {"type": "integer", "description": "生产数量", "default": 1},
+                            "auto_place_building": {"type": "boolean", "description": "是否自动放置建筑", "default": True}
+                        },
+                        "required": ["unit_type"]
+                    }
+                }
+            },
+            {
+                "type": "function",
+                "function": {
+                    "name": "place_building",
+                    "description": "放置已生产完成的建筑",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "queue_type": {"type": "string", "description": "生产队列类型: 'Building', 'Defense', 'Infantry', 'Vehicle', 'Aircraft', 'Naval'"},
+                            "x": {"type": "integer", "description": "放置X坐标（可选，不指定则自动选址）"},
+                            "y": {"type": "integer", "description": "放置Y坐标（可选，不指定则自动选址）"}
+                        },
+                        "required": ["queue_type"]
+                    }
+                }
             }
         ]
     
@@ -162,18 +208,23 @@ class OpenRACopilotAgent:
             messages = [
                 {
                     "role": "system", 
-                    "content": """你是 OpenRA 游戏的 AI 助手。用户会用自然语言描述他们想要执行的游戏操作，你需要：
+                    "content": """你是 OpenRA 游戏的 AI 助手。用户用自然语言描述游戏操作，你必须：
 
-1. 理解用户意图
-2. 调用相应的工具函数来执行操作
-3. 返回操作结果
+1. **每次都先调用 get_game_state 工具**来获取当前游戏状态、资源和可用单位信息
+2. 根据获取的信息，选择合适的工具执行用户请求
+3. 只能使用真实的 actor_id（整数），不能使用 "MCV"、"actor_1" 这种字符串
 
-可用的主要操作：
-- 生产单位：步兵、电厂、重坦、矿车、兵营等
-- 查询状态：游戏状态、单位信息、资源信息
-- 单位控制：移动、攻击等
+核心规则：
+- 你每次都先 get_game_state 来刷新状态，获取可以操作的 actor_id
+- 如果不知道 actor 的 ID，必须先调用 get_game_state 获取所有信息
+- 绝不能传入虚构的 ID，只能使用从工具返回的真实 actor_id
 
-请根据用户指令调用合适的工具。"""
+**重要：展开基地车的特殊规则：**
+- 当用户要求"展开基地车"时，即使 get_game_state 显示没有可见单位，也要调用 deploy_units() 工具（不传参数）
+- deploy_units() 工具会自动寻找并部署基地车，不需要提前知道基地车ID
+- 不要因为查询不到单位就放弃执行部署命令
+
+可用操作：生产单位、查询状态、移动攻击、部署展开等。"""
                 },
                 {"role": "user", "content": user_input}
             ]
@@ -190,7 +241,8 @@ class OpenRACopilotAgent:
             
             # 如果 AI 选择了工具调用
             if message.tool_calls:
-                results = []
+                # 构建工具响应消息
+                tool_messages = [message]  # 先添加 assistant 的工具调用消息
                 
                 for tool_call in message.tool_calls:
                     tool_name = tool_call.function.name
@@ -200,20 +252,16 @@ class OpenRACopilotAgent:
                     
                     # 调用工具
                     result = self.call_tool(tool_name, arguments)
-                    results.append({
-                        "tool": tool_name,
-                        "arguments": arguments, 
-                        "result": result
+                    
+                    # 添加标准的 tool 消息
+                    tool_messages.append({
+                        "role": "tool",
+                        "tool_call_id": tool_call.id,
+                        "content": json.dumps(result, ensure_ascii=False) if isinstance(result, (dict, list)) else str(result)
                     })
                 
-                # 让 AI 总结结果
-                summary_messages = messages + [
-                    message,
-                    {
-                        "role": "user",
-                        "content": f"工具执行结果：{json.dumps(results, ensure_ascii=False)}。请用简洁的中文总结执行情况。"
-                    }
-                ]
+                # 让 AI 总结结果 - 使用正确的消息格式
+                summary_messages = messages + tool_messages
                 
                 summary_response = self.client.chat.completions.create(
                     model=self.model,

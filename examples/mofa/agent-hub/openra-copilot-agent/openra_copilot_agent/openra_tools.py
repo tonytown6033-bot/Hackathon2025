@@ -22,27 +22,45 @@ class OpenRATools:
         """返回玩家资源、电力和可见单位列表"""
         # 1) 玩家基础信息
         info = self.api.player_base_info_query()
-        # 2) 屏幕内可见单位
-        units = self.api.query_actor(
-            TargetsQueryParam(
-                type=[], faction=["任意"], range="screen", restrain=[{"visible": True}]
-            )
-        )
-        visible = [
-            {
-                "actor_id": u.actor_id,
-                "type": u.type,
-                "faction": u.faction,
-                "position": {"x": u.position.x, "y": u.position.y},
-            }
-            for u in units if u.faction != "中立"
-        ]
+        
+        # 2) 由于 query_actor API 在当前游戏版本中似乎有问题，我们采用间接方法
+        visible = []
+        
+        # 方法1: 先选择所有单位，然后尝试查询（虽然查询会失败，但能确认有单位存在）
+        game_status = "游戏正在运行"
+        try:
+            # 尝试选择屏幕中的所有单位
+            select_response = self.api._send_request('select_unit', {
+                'targets': {},
+                'isCombine': 0
+            })
+            if "Selected" in select_response.get('response', ''):
+                game_status += "，检测到可选择的单位存在"
+            else:
+                game_status += "，未检测到可选择的单位"
+        except:
+            game_status += "，选择操作失败"
+        
+        # 方法2: 尝试通过ID暴力查找（这个方法有时能工作）
+        for actor_id in range(1, 30):  # 扩大搜索范围
+            try:
+                actor = self.api.get_actor_by_id(actor_id)
+                if actor:
+                    visible.append({
+                        "actor_id": actor.actor_id,
+                        "type": actor.type,
+                        "faction": actor.faction,
+                        "position": {"x": actor.position.x, "y": actor.position.y},
+                    })
+            except:
+                pass
 
         return {
             "cash": info.Cash,
             "resources": info.Resources,
             "power": info.Power,
-            "visible_units": visible
+            "visible_units": visible,
+            "game_status": game_status  # 添加游戏状态信息
         }
 
     def visible_units(self, type: List[str], faction: str, range: str, restrain: List[dict]) -> List[Dict[str, Any]]:
@@ -187,11 +205,49 @@ class OpenRATools:
             "hpPercent": getattr(actor, "hp_percent", None)
         }
 
-    def deploy_units(self, actor_ids: List[int]) -> str:
-        """展开或部署指定单位列表"""
-        actors = [Actor(i) for i in actor_ids]
-        self.api.deploy_units(actors)
-        return "ok"
+    def deploy_units(self, actor_ids: List[int] = None) -> str:
+        """展开或部署指定单位列表，如果没有指定ID则尝试寻找和部署基地车"""
+        if actor_ids:
+            # 指定了ID，正常部署
+            actors = [Actor(i) for i in actor_ids]
+            self.api.deploy_units(actors)
+            return "ok"
+        else:
+            # 没有指定ID，尝试直接使用 API 调用部署基地车
+            # 1. 先尝试使用内置的 deploy_mcv_and_wait 方法
+            try:
+                self.api.deploy_mcv_and_wait(1.0)
+                return "成功部署基地车 (使用内置方法)"
+            except Exception as e:
+                print(f"内置方法失败: {e}")
+                
+            # 2. 尝试直接调用 deploy API
+            deploy_attempts = [
+                {'targets': {'type': ['基地车'], 'faction': '己方'}},
+                {'targets': {'type': ['mcv'], 'faction': '己方'}},  
+                {'targets': {'type': ['基地车']}},
+                {'targets': {'type': ['mcv']}},
+                {'targets': {'faction': '己方'}},  # 部署所有己方可部署单位
+            ]
+            
+            for i, params in enumerate(deploy_attempts):
+                try:
+                    response = self.api._send_request('deploy', params)
+                    return f"成功部署 (尝试{i+1}): {response.get('response', '')}"
+                except Exception as e:
+                    continue
+                    
+            # 3. 最后尝试通过ID暴力查找MCV
+            for actor_id in range(1, 50):
+                try:
+                    actor = self.api.get_actor_by_id(actor_id)
+                    if actor and ('mcv' in actor.type.lower() or 'construction' in actor.type.lower() or '基地车' in actor.type):
+                        self.api.deploy_units([actor])
+                        return f"找到并部署基地车 ID: {actor_id}"
+                except:
+                    continue
+                    
+            return "未找到基地车可以部署，所有尝试都失败了"
 
     def move_camera_to_actor(self, actor_id: int) -> str:
         """将镜头移动到指定 Actor 的位置"""
@@ -304,3 +360,29 @@ class OpenRATools:
         actors = [Actor(i) for i in actor_ids]
         self.api.set_rally_point(actors, Location(x, y))
         return "ok"
+
+    def start_production(self, unit_type: str, quantity: int = 1, auto_place_building: bool = True) -> int:
+        """开始生产单位或建筑，返回等待ID"""
+        try:
+            # 直接调用 API
+            response = self.api._send_request('start_production', {
+                'units': [{'unit_type': unit_type, 'quantity': quantity}],
+                'autoPlaceBuilding': auto_place_building
+            })
+            result = response.get('data', {})
+            return result.get('waitId', -1)
+        except Exception as e:
+            print(f"生产失败: {e}")
+            return -1
+
+    def place_building(self, queue_type: str, x: int = None, y: int = None) -> str:
+        """放置已生产完成的建筑"""
+        try:
+            params = {'queueType': queue_type}
+            if x is not None and y is not None:
+                params['location'] = {'x': x, 'y': y}
+            
+            response = self.api._send_request('place_building', params)
+            return response.get('response', '建筑放置完成')
+        except Exception as e:
+            return f"放置建筑失败: {e}"
