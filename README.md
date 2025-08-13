@@ -90,6 +90,10 @@ Red Alert: AI Uprising，红警之AI崛起！我们邀你来共同探索！加�
 - 参赛者将日志上传至[官网][https://hackathon.mofa.ai/leaderboard/]
 - 组委会根据评估规则评分并更新[排名](https://hackathon.mofa.ai/leaderboard/)
 
+#### 日志位置
+MacOS位于 ： ~/Library/Application Support/OpenRA/Logs  
+Windows位于：%APPDATA%\OpenRA\Logs
+
 ## 决赛(嘉年华)
 
 决赛将于 9月13日-14日 在 [GOSIM China 大会](https://hangzhou2025.gosim.org)现场举办。这不仅仅是是进一步的技术比拼，我们更希望将它打造为红警玩家、AI开发者和开源社区的盛事（嘉年华）。
