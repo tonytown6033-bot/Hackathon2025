@@ -15,6 +15,7 @@ packages = [{ include = "openra_mcp_agent" }]
 pyarrow = ">= 5.0.0"
 openai = ">= 1.50.0"
 python-dotenv = ">= 1.0.0"
+mcp = ">= 1.0.0"
 
 [tool.poetry.scripts]
 openra-mcp-agent = "openra_mcp_agent.main:main"

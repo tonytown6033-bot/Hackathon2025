@@ -1,0 +1,27 @@
+nodes:
+  # 终端输入节点 - 接收用户命令并显示结果
+  - id: terminal-input
+    build: pip install -e ../../node-hub/terminal-input
+    path: dynamic
+    outputs:
+      - data
+    inputs:
+      copilot_result: openra-mcp-agent-node/copilot_result
+
+
+  # OpenRA MCP Agent - 使用mofa_old中的agent
+  - id: openra-mcp-agent-node
+    build: pip install -e ../../agent-hub/openra-mcp-agent
+    path: openra-mcp-agent
+    outputs:
+      - copilot_result
+    inputs:
+      user_command: terminal-input/data
+    env:
+      OPENRA_PATH: /Users/liyao/Code/mofa/OpenCodeAlert/Copilot/openra_ai
+      OPENRA_LIBRARY_PATH: /Users/liyao/Code/mofa/Hackathon2025/examples/mcp
+      PYTHONPATH: /Users/liyao/Code/mofa/Hackathon2025/examples/mcp
+      OPENAI_API_KEY: ${OPENAI_API_KEY}  # 请设置环境变量
+      OPENAI_BASE_URL: https://api.openai.com/v1
+      OPENAI_MODEL: gpt-5
+      IS_DATAFLOW_END: true

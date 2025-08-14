@@ -86,10 +86,30 @@ class OpenRATools:
             for u in units
         ]
 
-    def produce(self, unit_type: str, quantity: int) -> int:
-        """生产指定类型和数量的单位，返回生产任务 ID"""
-        wait_id = self.api.produce(unit_type, quantity, auto_place_building=True)
-        return wait_id or -1
+    def produce(self, unit_type: str, quantity: int) -> Dict[str, Any]:
+        """生产指定类型和数量的单位，使用GameAPI的produce方法"""
+        try:
+            # 使用GameAPI库的produce方法，它已经处理了API调用
+            wait_id = self.api.produce(unit_type, quantity, auto_place_building=True)
+            
+            if wait_id is not None:
+                return {
+                    "success": True, 
+                    "message": f"成功开始生产{unit_type}，数量{quantity}",
+                    "wait_id": wait_id
+                }
+            else:
+                return {
+                    "success": False, 
+                    "error": f"生产失败: 可能缺少必要建筑或资源不足",
+                    "wait_id": None
+                }
+        except Exception as e:
+            return {
+                "success": False, 
+                "error": f"生产异常: {str(e)}",
+                "wait_id": None
+            }
 
     def move_units(self, actor_ids: List[int], x: int, y: int, attack_move: bool = False) -> str:
         """移动一批单位到指定坐标"""
@@ -205,49 +225,44 @@ class OpenRATools:
             "hpPercent": getattr(actor, "hp_percent", None)
         }
 
-    def deploy_units(self, actor_ids: List[int] = None) -> str:
-        """展开或部署指定单位列表，如果没有指定ID则尝试寻找和部署基地车"""
-        if actor_ids:
-            # 指定了ID，正常部署
-            actors = [Actor(i) for i in actor_ids]
-            self.api.deploy_units(actors)
-            return "ok"
-        else:
-            # 没有指定ID，尝试直接使用 API 调用部署基地车
-            # 1. 先尝试使用内置的 deploy_mcv_and_wait 方法
-            try:
-                self.api.deploy_mcv_and_wait(1.0)
-                return "成功部署基地车 (使用内置方法)"
-            except Exception as e:
-                print(f"内置方法失败: {e}")
+    def deploy_units(self, actor_ids: List[int] = None) -> Dict[str, Any]:
+        """展开或部署指定单位列表，使用GameAPI的deploy方法"""
+        try:
+            if actor_ids:
+                # 指定了特定ID，构造Actor对象并部署
+                actors = []
+                for actor_id in actor_ids:
+                    try:
+                        actor = self.api.get_actor_by_id(actor_id)
+                        if actor:
+                            actors.append(actor)
+                    except:
+                        continue
                 
-            # 2. 尝试直接调用 deploy API
-            deploy_attempts = [
-                {'targets': {'type': ['基地车'], 'faction': '己方'}},
-                {'targets': {'type': ['mcv'], 'faction': '己方'}},  
-                {'targets': {'type': ['基地车']}},
-                {'targets': {'type': ['mcv']}},
-                {'targets': {'faction': '己方'}},  # 部署所有己方可部署单位
-            ]
-            
-            for i, params in enumerate(deploy_attempts):
-                try:
-                    response = self.api._send_request('deploy', params)
-                    return f"成功部署 (尝试{i+1}): {response.get('response', '')}"
-                except Exception as e:
-                    continue
-                    
-            # 3. 最后尝试通过ID暴力查找MCV
-            for actor_id in range(1, 50):
-                try:
-                    actor = self.api.get_actor_by_id(actor_id)
-                    if actor and ('mcv' in actor.type.lower() or 'construction' in actor.type.lower() or '基地车' in actor.type):
-                        self.api.deploy_units([actor])
-                        return f"找到并部署基地车 ID: {actor_id}"
-                except:
-                    continue
-                    
-            return "未找到基地车可以部署，所有尝试都失败了"
+                if actors:
+                    self.api.deploy_units(actors)
+                    return {
+                        "success": True, 
+                        "message": f"成功部署{len(actors)}个单位"
+                    }
+                else:
+                    return {
+                        "success": False, 
+                        "error": "未找到指定的单位ID"
+                    }
+            else:
+                # 没有指定ID，使用deploy_mcv_and_wait自动寻找并部署基地车
+                self.api.deploy_mcv_and_wait(1.0)
+                return {
+                    "success": True, 
+                    "message": "基地车展开成功"
+                }
+                
+        except Exception as e:
+            return {
+                "success": False, 
+                "error": f"部署异常: {str(e)}"
+            }
 
     def move_camera_to_actor(self, actor_id: int) -> str:
         """将镜头移动到指定 Actor 的位置"""

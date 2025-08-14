@@ -5,7 +5,16 @@
 
 import sys
 import os
-sys.path.append(os.getenv('OPENRA_PATH', '/Users/liyao/Code/mofa/OpenCodeAlert/Copilot/openra_ai'))
+
+# 添加 OpenRA 库路径
+openra_path = os.getenv('OPENRA_PATH', '/Users/liyao/Code/mofa/OpenCodeAlert/Copilot/openra_ai')
+if openra_path not in sys.path:
+    sys.path.append(openra_path)
+
+# 添加 MCP 项目中的 OpenRA_Copilot_Library 路径
+library_path = os.getenv('OPENRA_LIBRARY_PATH', '/Users/liyao/Code/mofa/Hackathon2025/examples/mcp')
+if library_path not in sys.path:
+    sys.path.append(library_path)
 
 from OpenRA_Copilot_Library import GameAPI
 from OpenRA_Copilot_Library.models import Location, TargetsQueryParam, Actor, MapQueryResult
@@ -86,10 +95,27 @@ class OpenRATools:
             for u in units
         ]
 
-    def produce(self, unit_type: str, quantity: int) -> int:
-        """生产指定类型和数量的单位，返回生产任务 ID"""
-        wait_id = self.api.produce(unit_type, quantity, auto_place_building=True)
-        return wait_id or -1
+    def produce(self, unit_type: str, quantity: int) -> Dict[str, Any]:
+        """生产指定类型和数量的单位，返回详细结果"""
+        try:
+            wait_id = self.api.produce(unit_type, quantity, auto_place_building=True)
+            if wait_id is None:
+                return {
+                    "success": False, 
+                    "error": "生产失败 - 可能缺少必要的建筑、资源不足、或需要先展开基地车",
+                    "wait_id": None
+                }
+            return {
+                "success": True, 
+                "message": f"成功开始生产{unit_type}，数量{quantity}",
+                "wait_id": wait_id
+            }
+        except Exception as e:
+            return {
+                "success": False, 
+                "error": f"生产异常: {str(e)}",
+                "wait_id": None
+            }
 
     def move_units(self, actor_ids: List[int], x: int, y: int, attack_move: bool = False) -> str:
         """移动一批单位到指定坐标"""
@@ -205,19 +231,22 @@ class OpenRATools:
             "hpPercent": getattr(actor, "hp_percent", None)
         }
 
-    def deploy_units(self, actor_ids: List[int] = None) -> str:
+    def deploy_units(self, actor_ids: List[int] = None) -> Dict[str, Any]:
         """展开或部署指定单位列表，如果没有指定ID则尝试寻找和部署基地车"""
         if actor_ids:
             # 指定了ID，正常部署
-            actors = [Actor(i) for i in actor_ids]
-            self.api.deploy_units(actors)
-            return "ok"
+            try:
+                actors = [Actor(i) for i in actor_ids]
+                self.api.deploy_units(actors)
+                return {"success": True, "message": f"成功部署单位ID: {actor_ids}"}
+            except Exception as e:
+                return {"success": False, "error": f"部署指定单位失败: {str(e)}"}
         else:
             # 没有指定ID，尝试直接使用 API 调用部署基地车
             # 1. 先尝试使用内置的 deploy_mcv_and_wait 方法
             try:
                 self.api.deploy_mcv_and_wait(1.0)
-                return "成功部署基地车 (使用内置方法)"
+                return {"success": True, "message": "基地车成功展开 (使用内置方法)"}
             except Exception as e:
                 print(f"内置方法失败: {e}")
                 
@@ -233,7 +262,7 @@ class OpenRATools:
             for i, params in enumerate(deploy_attempts):
                 try:
                     response = self.api._send_request('deploy', params)
-                    return f"成功部署 (尝试{i+1}): {response.get('response', '')}"
+                    return {"success": True, "message": f"基地车部署成功 (方法{i+1}): {response.get('response', '')}"}
                 except Exception as e:
                     continue
                     
@@ -243,11 +272,11 @@ class OpenRATools:
                     actor = self.api.get_actor_by_id(actor_id)
                     if actor and ('mcv' in actor.type.lower() or 'construction' in actor.type.lower() or '基地车' in actor.type):
                         self.api.deploy_units([actor])
-                        return f"找到并部署基地车 ID: {actor_id}"
+                        return {"success": True, "message": f"找到并成功部署基地车 ID: {actor_id}"}
                 except:
                     continue
                     
-            return "未找到基地车可以部署，所有尝试都失败了"
+            return {"success": False, "error": "未找到基地车或所有部署方法都失败了，可能需要在OpenRA游戏中手动操作或检查游戏状态"}
 
     def move_camera_to_actor(self, actor_id: int) -> str:
         """将镜头移动到指定 Actor 的位置"""
@@ -386,3 +415,27 @@ class OpenRATools:
             return response.get('response', '建筑放置完成')
         except Exception as e:
             return f"放置建筑失败: {e}"
+
+    def get_unexplored_nearby_positions(self, map_result: Dict[str, Any], current_x: int, current_y: int, max_distance: int) -> List[Dict[str, int]]:
+        """获取当前位置附近尚未探索的坐标列表"""
+        # 将 dict 转回 MapQueryResult
+        mq = MapQueryResult(
+            MapWidth=map_result["width"],
+            MapHeight=map_result["height"],
+            Height=map_result["heightMap"],
+            IsVisible=map_result["visible"],
+            IsExplored=map_result["explored"],
+            Terrain=map_result["terrain"],
+            ResourcesType=map_result["resourcesType"],
+            Resources=map_result["resources"]
+        )
+        
+        # 调用底层方法
+        locs = self.api.get_unexplored_nearby_positions(
+            mq,
+            Location(current_x, current_y),
+            max_distance
+        )
+        
+        # 序列化为 JSON-friendly 格式
+        return [{"x": loc.x, "y": loc.y} for loc in locs]
