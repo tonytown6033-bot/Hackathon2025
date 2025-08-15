@@ -170,6 +170,4 @@ def main():
         print(f"   总体成功率: {total_success}/{total_attempts}")
     
 if __name__ == "__main__":
-    executor_game = GameExecutor()
-    executor_game.execute_ai_decisions()
     main()

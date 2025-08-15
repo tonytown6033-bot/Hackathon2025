@@ -1,7 +1,8 @@
 import json
 import os
 import sys
-sys.path.append(os.getenv('OPENRA_PATH','/Users/chenzi/chenzi/project/github/OpenRA/Copilot/openra_ai'))
+sys.path.append(os.getenv('OPENRA_PATH','/Users/chenzi/project/github/OpenRA/Copilot/openra_ai'))
+sys.path.append(os.getenv('OPENRA_PATH','/Users/chenzi/project/github/OpenRA/Copilot/openra_ai/OpenRA_Copilot_Library'))
 current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, current_dir)
 from mofa.agent_build.base.base_agent import MofaAgent, run_agent

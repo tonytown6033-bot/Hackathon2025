@@ -1,0 +1,15 @@
+{
+  "executed_actions": [],
+  "failed_actions": [],
+  "production_results": {
+    "infantry": [
+      {
+        "unit": "e1",
+        "success": false
+      }
+    ],
+    "vehicle": [],
+    "building": []
+  },
+  "timestamp": 1753086164.604361
+}

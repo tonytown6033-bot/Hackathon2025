@@ -1,6 +1,7 @@
 import os
 import sys
-sys.path.append(os.getenv('OPENRA_PATH','/Users/chenzi/chenzi/project/github/OpenRA/Copilot/openra_ai'))
+sys.path.append(os.getenv('OPENRA_PATH','/Users/chenzi/project/github/OpenRA/Copilot/openra_ai'))
+sys.path.append(os.getenv('OPENRA_PATH','/Users/chenzi/project/github/OpenRA/Copilot/openra_ai/OpenRA_Copilot_Library'))
 from mofa.agent_build.base.base_agent import MofaAgent, run_agent
 from OpenRA_Copilot_Library import GameAPI, Location, TargetsQueryParam
 current_dir = os.path.dirname(os.path.abspath(__file__))

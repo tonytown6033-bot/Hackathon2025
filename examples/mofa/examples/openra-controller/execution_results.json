@@ -20,14 +20,14 @@
     ],
     "building": [
       {
-        "unit": "barr",
+        "unit": "weap",
         "success": true
       },
       {
-        "unit": "weap",
+        "unit": "barr",
         "success": true
       }
     ]
   },
-  "timestamp": 1753165927.0101619
+  "timestamp": 1753502639.936447
 }

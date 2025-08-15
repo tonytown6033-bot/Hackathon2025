@@ -1,16 +1,9 @@
 {
   "economy": {
-    "cash": 462000,
-    "power": 520,
-    "power_provided": 1800,
-    "power_drained": 1280,
-    "raw_data": {
-      "Cash": 4200,
-      "Resources": 457800,
-      "Power": 520,
-      "PowerProvided": 1800,
-      "PowerDrained": 1280
-    }
+    "cash": 0,
+    "power": 0,
+    "power_provided": 0,
+    "power_drained": 0
   },
   "production": {
     "infantry": {
@@ -45,19 +38,9 @@
     }
   },
   "map_info": {
-    "width": 85,
-    "height": 92
+    "width": 0,
+    "height": 0
   },
-  "screen_info": {
-    "screen_min": {
-      "X": 1,
-      "Y": 54
-    },
-    "screen_max": {
-      "X": 42,
-      "Y": 80
-    },
-    "mouse_on_screen": true
-  },
-  "timestamp": 1753502632.020735
+  "screen_info": {},
+  "timestamp": 1753086073.635116
 }
