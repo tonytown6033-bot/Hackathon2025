@@ -4,7 +4,7 @@
 """战场情况读取模块"""
 import os
 import sys
-sys.path.append('/Users/liyao/Code/mofa/OpenCodeAlert/Copilot/openra_ai')
+sys.path.append(os.getenv('OPENRA_PATH','.'))
 from OpenRA_Copilot_Library import GameAPI, Location, TargetsQueryParam
 import json
 
@@ -68,13 +68,7 @@ class BattlefieldReader:
             try:
                 # 使用GameAPI的封装方法
                 queue_data = self.api.query_production_queue(queue_type)
-                queue_info = {
-                    "items": len(queue_data.get('queue_items', [])),
-                    "has_ready": queue_data.get('has_ready_item', False),
-                    "queue_items": queue_data.get('queue_items', [])
-                }
-                queues[queue_type.lower()] = queue_info
-                print(f"🏭 {queue_type}: {queue_info['items']}项目" + (" (有完成)" if queue_info['has_ready'] else ""))
+                queues[queue_type.lower()] = queue_data
             except Exception as e:
                 print(f"❌ 读取{queue_type}队列失败: {e}")
                 queues[queue_type.lower()] = {"items": 0, "has_ready": False, "queue_items": []}
@@ -86,10 +80,19 @@ class BattlefieldReader:
         try:
             # 使用GameAPI的封装方法
             map_data = self.api.map_query()
-            map_info = {
-                "width": map_data.MapWidth,
-                "height": map_data.MapHeight
-            }
+            mq = {
+        "width": map_data.MapWidth,
+        "height": map_data.MapHeight,
+        # "heightMap": map_data.Height,
+        # "visible": map_data.IsVisible,
+        # "explored": map_data.IsExplored,
+        # "terrain": map_data.Terrain,
+        # "resourcesType": map_data.ResourcesType,
+        # "resources": map_data.Resources
+    }
+
+            # 序列化为 JSON-friendly 格式
+            return mq
             print(f"🗺️ 地图: {map_info['width']} x {map_info['height']}")
             return map_info
         except Exception as e:
@@ -101,12 +104,13 @@ class BattlefieldReader:
         """读取屏幕信息"""
         try:
             # 使用GameAPI的封装方法
-            screen_data = self.api.screen_info_query()
+            info = self.api.screen_info_query()
             screen_info = {
-                "screen_min": {"X": screen_data.ScreenMin.x, "Y": screen_data.ScreenMin.y},
-                "screen_max": {"X": screen_data.ScreenMax.x, "Y": screen_data.ScreenMax.y},
-                "mouse_on_screen": screen_data.IsMouseOnScreen
-            }
+        "screenMin": {"x": info.ScreenMin.x, "y": info.ScreenMin.y},
+        "screenMax": {"x": info.ScreenMax.x, "y": info.ScreenMax.y},
+        "isMouseOnScreen": info.IsMouseOnScreen,
+        "mousePosition": {"x": info.MousePosition.x, "y": info.MousePosition.y}
+    }
             print(f"🖥️ 屏幕信息已读取")
             return screen_info
         except Exception as e:

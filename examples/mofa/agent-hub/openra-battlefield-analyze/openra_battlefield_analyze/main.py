@@ -1,7 +1,6 @@
 import os
 import sys
-sys.path.append(os.getenv('OPENRA_PATH','/Users/chenzi/project/github/OpenRA/Copilot/openra_ai'))
-sys.path.append(os.getenv('OPENRA_PATH','/Users/chenzi/project/github/OpenRA/Copilot/openra_ai/OpenRA_Copilot_Library'))
+sys.path.append(os.getenv('OPENRA_PATH','.'))
 from mofa.agent_build.base.base_agent import MofaAgent, run_agent
 from OpenRA_Copilot_Library import GameAPI, Location, TargetsQueryParam
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -20,7 +19,7 @@ def run(agent: MofaAgent):
 
     ai_analyzer = AIAnalyzer(API_KEY)
     file_path = 'battlefield_state.json'
-    ai_analysis = ai_analyzer.analyze_situation(file_path)
+    ai_analysis = ai_analyzer.analyze_situation()
     if not ai_analysis:
         agent.send_output(agent_output_name='battlefield_analyze_result', agent_result='❌ AI分析失败')
     else:

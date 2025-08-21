@@ -4,7 +4,7 @@
 """战场情况读取模块"""
 import os
 import sys
-sys.path.append('/Users/liyao/Code/mofa/OpenCodeAlert/Copilot/openra_ai')
+sys.path.append(os.getenv('OPENRA_PATH','.'))
 from OpenRA_Copilot_Library import GameAPI, Location, TargetsQueryParam
 import json
 
