@@ -3,11 +3,19 @@ from models import TargetsQueryParam, Actor
 from common.fog_explorer import FogExplorer
 import time
 
+# 定义高威胁单位类型
+HIGH_THREAT_TYPES = ["防空车", "防空导弹", "高射炮", "重坦克", "火箭车"]
+
 def is_actor_alive(api: GameAPI, actor_id: int) -> bool:
     try:
         return api.get_actor_by_id(actor_id) is not None
     except GameAPIError:
         return False
+
+def is_map_fully_explored(api: GameAPI) -> bool:
+    # 假设有API返回地图探索状态
+    map_info = api.query_map()
+    return all(row for row in getattr(map_info, "IsExplored", []))
 
 def execute_exploration_phase(api: GameAPI, explorer_yak: Actor):
     print("\n----- 阶段一：开始地图探索（FogExplorer） -----")
@@ -20,26 +28,52 @@ def execute_exploration_phase(api: GameAPI, explorer_yak: Actor):
         print(f"探索阶段发生错误: {e}")
         raise
 
-def execute_attack_phase(api: GameAPI, attack_squad: list[Actor], targets: list[Actor]):
+def target_priority(actor):
+    # 高威胁优先，血量低优先
+    threat_score = 1 if actor.type in HIGH_THREAT_TYPES else 0
+    hp_score = getattr(actor, "hppercent", 100)
+    return (-threat_score, hp_score)  # 高威胁且血量低的排前面
+
+def execute_attack_phase(api: GameAPI, attack_squad: list[Actor]):
     print("\n----- 阶段二：开始执行精确打击 -----")
-    for target in targets:
-        print(f"锁定目标：{target.type} (ID: {target.actor_id})")
-        can_attack = False
-        for yak in attack_squad:
+    while True:
+        # 实时刷新敌方单位
+        all_actors = api.query_actor(TargetsQueryParam())
+        ground_enemies = [
+            e for e in all_actors
+            if getattr(e, 'faction', None) in ("enemy", "敌方")
+            and e.type
+            and not e.type.endswith(".husk")
+            and e.type not in ["战斗机", "轰炸机"]
+            and getattr(e, "hppercent", 1) > 0
+        ]
+        if not ground_enemies:
+            # 只有地图完全探索后才认为敌人被消灭
+            if is_map_fully_explored(api):
+                print("所有敌方地面目标已被消灭！")
+                break
+            else:
+                print("未发现敌人，可能被战争迷雾遮挡，继续侦查...")
+                # 可选：让侦查兵继续巡逻
+                time.sleep(2)
+                continue
+
+        # 优先级排序
+        ground_enemies.sort(key=target_priority)
+        # 为每架飞机分配不同目标
+        for idx, yak in enumerate(attack_squad):
+            if idx >= len(ground_enemies):
+                break
+            target = ground_enemies[idx]
             try:
                 if api.can_attack_target(yak, target):
                     api.attack_target(yak, target)
-                    can_attack = True
+                    print(f"{yak.actor_id} 攻击 {target.type} (ID: {target.actor_id}, HP: {getattr(target, 'hppercent', '?')})")
                 else:
-                    print(f"{yak.actor_id} 无法攻击目标 {target.type} (ID: {target.actor_id})，跳过。")
+                    print(f"{yak.actor_id} 无法攻击 {target.type} (ID: {target.actor_id})，跳过。")
             except GameAPIError as e:
                 print(f"攻击指令失败: {e}")
-        if not can_attack:
-            print(f"目标 {target.type} (ID: {target.actor_id}) 无法被任何己方单位攻击，跳过。")
-            continue
-        while is_actor_alive(api, target.actor_id):
-            time.sleep(1)
-        print(f"目标 {target.type} (ID: {target.actor_id}) 已被摧毁。")
+        time.sleep(2)  # 每2秒刷新一次目标
 
 def solve_mission_4(api: GameAPI):
     try:
@@ -84,7 +118,7 @@ def solve_mission_4(api: GameAPI):
         print("集结所有兵力，准备发起总攻...")
         all_yaks = api.query_actor(all_yaks_query)
         if all_yaks:
-            execute_attack_phase(api, all_yaks, enemy_targets)
+            execute_attack_phase(api, all_yaks)
         else:
             print("没有存活的雅克战机，无法发起总攻。")
 
