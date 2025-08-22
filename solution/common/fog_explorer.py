@@ -2,6 +2,9 @@ import time
 from game_api import GameAPI, GameAPIError
 from models import Location, TargetsQueryParam, MapQueryResult, Actor
 
+# 全局变量，用于存储扫描到的敌方单位
+discovered_enemy_units: list[Actor] = []
+
 class FogExplorer:
     """
     一个用于探索游戏地图战争迷雾的通用类。
@@ -25,37 +28,49 @@ class FogExplorer:
             raise ConnectionError("错误: 游戏服务器未运行。请启动游戏和任务。")
         
         self.api = GameAPI(host)
+        self.instance_enemy_units: list[Actor] = []
         print("成功连接到游戏服务器。")
+
+    def get_enemy_units(self) -> list[Actor]:
+        """
+        查询所有可见的敌方单位，并更新全局和实例的单位列表。
+
+        Returns:
+            list[Actor]: 当前可见的敌方单位列表。
+        
+        Raises:
+            GameAPIError: 如果在API调用期间发生错误。
+        """
+        global discovered_enemy_units
+        print("正在查询所有可见的敌方单位...")
+        try:
+            enemy_query = TargetsQueryParam(faction="enemy")
+            enemies = self.api.query_actor(enemy_query)
+            
+            discovered_enemy_units = enemies
+            self.instance_enemy_units = enemies
+            
+            print(f"查询完成，发现了 {len(enemies)} 个敌方单位。")
+            return enemies
+        except GameAPIError as e:
+            print(f"查询敌方单位时发生错误: {e}")
+            raise
 
     def _generate_serpentine_path(self, map_width: int, map_height: int, padding: int, vertical_step: int) -> list[Location]:
         """
         生成一个蛇形的路径点列表以覆盖整个地图。
-
-        这是一个内部辅助方法。
-
-        Args:
-            map_width (int): 地图宽度。
-            map_height (int): 地图高度。
-            padding (int): 路径与地图边缘的距离。
-            vertical_step (int): 每个水平通道之间的垂直距离。
-
-        Returns:
-            list[Location]: 包含路径航点的列表。
         """
         path_waypoints = []
         is_moving_right = True
 
         for y in range(padding, map_height - padding, vertical_step):
             if is_moving_right:
-                # 添加从左到右通道的航点
                 path_waypoints.append(Location(padding, y))
                 path_waypoints.append(Location(map_width - padding, y))
             else:
-                # 添加从右到左通道的航点
                 path_waypoints.append(Location(map_width - padding, y))
                 path_waypoints.append(Location(padding, y))
             
-            # 为下一个通道反转方向
             is_moving_right = not is_moving_right
         
         print(f"已生成包含 {len(path_waypoints)} 个航点的探索路径。")
@@ -81,8 +96,8 @@ class FogExplorer:
         if not explorer_units:
             raise ValueError(f"错误: 未找到与查询匹配的单位 {unit_query}。")
         
-        # 选择第一个找到的单位进行探索
         explorer_unit = explorer_units[0]
+        # 根据 models.py 中 Actor 的定义，其ID属性为 'id'
         print(f"找到探索单位 '{explorer_unit.type}' (ID: {explorer_unit.actor_id})。")
 
         # 2. 获取地图尺寸
@@ -95,6 +110,6 @@ class FogExplorer:
 
         # 4. 命令单位移动
         print(f"向单位 {explorer_unit.actor_id} 发出移动指令...")
+        # 使用正确的 API 函数 move_units_by_path，并传递一个包含 Actor 对象的列表
         self.api.move_units_by_path([explorer_unit], path)
-        print("指令已成功发出。单位现在将开始探索地图。")
-
+        print("指令已成功发出。单位现在将开始探索地图。")   
