@@ -1,5 +1,5 @@
 import time
-from game_api import GameAPI
+from game_api import GameAPI, GameAPIError
 from models import TargetsQueryParam
 
 # 建筑依赖表
@@ -53,9 +53,27 @@ class BuildSystem:
     def wait_for_completion(self):
         """等待生产队列清空（建筑 + 单位）"""
         while True:
-            building_queue = self.api.query_production_queue("建筑")
-            unit_queue = self.api.query_production_queue("单位")
-            if not building_queue and not unit_queue:
+            # 建筑队列
+            building_queue = self.api.query_production_queue("Building")
+
+            # 尝试查询所有单位队列，如果失败则视为空列表
+            unit_queues = []
+            for unit_type in ["Infantry", "Vehicle", "Aircraft", "Naval"]:
+                try:
+                    queue = self.api.query_production_queue(unit_type)
+                    if queue:
+                        unit_queues.append(queue)
+                except GameAPIError as e:
+                    if e.code == "COMMAND_EXECUTION_ERROR":
+                        self.log(f"⚠️ {unit_type} 生产队列查询失败，可能不存在。")
+                        # 忽略此错误并继续
+                        continue
+                    else:
+                        # 重新抛出其他类型的错误
+                        raise e
+
+            # 检查所有队列是否都已清空
+            if not building_queue and not unit_queues:
                 break
             time.sleep(1.0)
         self.log(f"✅ 本轮生产全部完成")
